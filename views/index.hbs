@@ -1,8 +1,12 @@
-<h1>{{title}}</h1>
-
-{{#each questions}}
-  <div class="text">
-    {{text}}
+<div class="survey">
+  Please answer truly:
+  <div class="questions">
+    <div class="question">
+      <div class="title">{{title}}</div>
+      <div class="subtitle"></div>
+      {{#each answers}}
+        <div class="answer">{{text}}</div>
+      {{/each}}
+    </div>
   </div>
-
-{{/each}}
+</div>
