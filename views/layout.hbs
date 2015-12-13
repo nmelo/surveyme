@@ -28,17 +28,23 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">SurveyMe - The Best Survey Taking App</a>
+          <a class="navbar-brand" href="/">SurveyMe</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Login</a></li>
+            {{#unless user}}
+              <li class="active"><a href="/login">Login</a></li>
+            {{else}}
+              <li class="active"><a href="/logout">Logout - Logged in as: {{user.username}}</a></li>
+            {{/unless}}
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
 
-    {{{body}}}
+    <div class="container">
+      {{{body}}}
+    </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

@@ -1,4 +1,4 @@
-/* /models/question.js */
+/* /models/survey.js */
 
 var Sequelize = require('sequelize');
 var env       = process.env.NODE_ENV || "development";
@@ -7,12 +7,13 @@ var config    = require(__dirname + '/../config/config.json')[env];
 // Setup sequelize db connection
 var sequelize = new Sequelize(config.database, config.username, config.password, config);
 
-var Question = sequelize.define('Question', {
-  survey_id: Sequelize.INTEGER,
+var Survey = sequelize.define('Survey', {
   title: Sequelize.STRING,
-  choices: Sequelize.STRING
+  subtitle: Sequelize.STRING,
+  active: Sequelize.BOOLEAN,
+  content: Sequelize.TEXT
 });
 
-Question.sync();
+Survey.sync();
 
-module.exports = Question;
+module.exports = Survey;

@@ -1,0 +1,18 @@
+<h1>All the Surveys:</h1>
+
+<form action="/surveys/create" method='post'>
+
+  <input type="text" name="title" placeholder="Title" value="Title"><br>
+  <input type="text" name="subtitle" placeholder="Subtitle" value="Subtitle"><br>
+  <button type="submit">Create</button>
+
+</form>
+<br><br>
+<ul>
+    {{#each surveys }}
+        <li>
+            <a href='/surveys/{{id}}'>{{title}}</a>
+            <a href='/surveys/{{id}}/destroy'>(Delete)</a><br>
+        </li>
+    {{/each}}
+</ul>

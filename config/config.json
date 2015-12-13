@@ -1,0 +1,10 @@
+{
+  "development": {
+    "database": "surveys",
+    "username": "root",
+    "password": "",
+    "config": {
+      "dialect": "mysql"
+    }
+  }
+}

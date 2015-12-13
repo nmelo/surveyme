@@ -5,9 +5,8 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('untitled:server');
+var debug = require('debug')('try-passport-sequelize:server');
 var http = require('http');
-var db = require('../models');
 
 /**
  * Get port from environment and store in Express.
