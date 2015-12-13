@@ -12,6 +12,9 @@ A simple survey system
 6. Start your server: `npm start`
 7. View your app in browser: `http://server:3000`.
 
+## Test site: 
+http://surveyme.nmelo.me:3000
+
 ## Admin Login Info:
 Default username: admin
 Default password: admin123
