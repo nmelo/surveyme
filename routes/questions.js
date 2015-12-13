@@ -1,6 +1,9 @@
-var Question  = require('../models/question');
 var express = require('express');
 var router  = express.Router();
+
+var db = require('../models');
+var Question = db.Question;
+
 
 router.post('/create', function(req, res) {
   if(!req.isAuthenticated()) res.redirect('/login');
@@ -20,7 +23,14 @@ router.get('/:question_id', function(req, res) {
     })
     .then(function(question) {
       if (question) {
-        res.send(question);
+
+        Choice
+            .findAll({
+              where: {question_id: req.params.question_id}
+            })
+            .then(function(choices) {
+              res.render('question', { user: req.user, question_id: req.params.question_id, choices: choices});
+            });
       }
       else {
         res.status(400);

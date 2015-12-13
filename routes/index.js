@@ -1,11 +1,13 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../models/user');
-var Survey = require('../models/survey');
-var Question = require('../models/question');
 var passport = require('passport');
 var uuid = require('node-uuid');
 var _ = require('lodash');
+
+var db = require('../models');
+var User = db.User;
+var Survey = db.Survey;
+var Question = db.Question;
 
 
 function shuffle(array) {

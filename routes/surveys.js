@@ -1,7 +1,9 @@
-var Survey  = require('../models/survey');
-var Question = require('../models/question');
 var express = require('express');
 var router  = express.Router();
+
+var db = require('../models');
+var Survey  = db.Survey;
+var Question = db.Question;
 
 router.get('/', function(req, res) {
   if(!req.isAuthenticated()) res.redirect('/login');

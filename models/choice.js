@@ -1,9 +1,7 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var Survey = sequelize.define('Survey', {
-    title: DataTypes.STRING,
-    subtitle: DataTypes.STRING,
-    active: DataTypes.BOOLEAN
+  var Choice = sequelize.define('Choice', {
+    text: DataTypes.STRING
   }, {
     classMethods: {
       associate: function(models) {
@@ -11,5 +9,5 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
-  return Survey;
+  return Choice;
 };

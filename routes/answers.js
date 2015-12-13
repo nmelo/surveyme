@@ -1,7 +1,10 @@
-var Question = require('../models/question');
-var Answer = require('../models/answer');
 var express = require('express');
 var router  = express.Router();
+
+var db = require('../models');
+var Question = db.Question;
+var Answer  = db.Answer;
+
 
 router.post('/create', function(req, res) {
   var question_id = req.body.question_id;
