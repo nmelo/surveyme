@@ -1,15 +1,31 @@
 <h1>Create new choice:</h1>
-<form action="/choices/create" method='post'>
-  <input type="hidden" name="question_id" value="{{question_id}}"><br>
-  <input type="text" name="text" placeholder="Text" value="Choice Text"><br>
-  <button type="submit">Save</button>
+
+<form action="/choices/create" method='post' class="sm-col-6 border">
+
+  <input type="hidden" name="question_id" value="{{question_id}}">
+
+  <label for="text">Text</label>
+  <input type="text" class="block col-12 mb1 field" name="text" placeholder="Text" value="Choice Text">
+
+  <button type="submit" class="btn btn-primary">Create</button>
 </form>
-<br><br>
-<ul>
+
+<br>
+
+<div>
+  <table class="table-light border">
+    <thead>
+    <tr>
+      <th>Text</th> <th></th>
+    </tr>
+    </thead>
+    <tbody>
     {{#each choices }}
-        <li>
-            {{text}}
-            <a href='/choices/{{id}}/destroy'>(Delete)</a><br>
-        </li>
+      <tr>
+        <td>{{text}}</td>
+        <td><a href='/choices/{{id}}/destroy' class="btn btn-primary">Delete</a></td>
+      </tr>
     {{/each}}
-</ul>
+    </tbody>
+  </table>
+</div>

@@ -26,32 +26,23 @@ var app = express();
 // Passport config
 passport.use(new LocalStrategy(
   function(username, password, done) {
+    console.log("authing with username and p:" + username + " " + password);
+
     User.findOne({ where: {username: username }})
     .then(function(user) {
       if (!user) {
         return done(null, false, { message: 'Incorrect username.' });
-      } else {
-          if (user.password != password) {
+      }
+      else {
+          if(!bcrypt.compareSync(password, user.hash)) {
             return done(null, false, { message: 'Incorrect password.' });
+          }
+          else {
+            return done(null, user);
           }
       }
       return done(null, user);
     });
-
-
-  //new Model.User({username: username}).fetch().then(function(data) {
-  //    var user = data;
-  //    if(user === null) {
-  //      return done(null, false, {message: 'Invalid username or password'});
-  //    } else {
-  //      user = data.toJSON();
-  //      if(!bcrypt.compareSync(password, user.password)) {
-  //        return done(null, false, {message: 'Invalid username or password'});
-  //      } else {
-  //        return done(null, user);
-  //      }
-  //    }
-  //  });
 }));
 
 passport.serializeUser(function(user, done) {
@@ -65,7 +56,6 @@ passport.deserializeUser(function(username, done) {
     done(null, user);
   });
 });
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

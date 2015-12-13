@@ -1,14 +1,11 @@
 <h1>Sign up</h1>
-<form method="post" action="/signup">
-  {{#if errorMessage }}
-    <span>{{errorMessage}}</span>
-  {{/if}}
+<form method="post" action="/signup" class="sm-col-6 border">
 
-  <label for="username">username</label>
-  <input type="text" name="username" id="username" placeholder="username" required="true"/>
-  <br>
-  <label for="password">password</label>
-  <input type="text" name="password" id="password" placeholder="password" required="true"/>
-  <br>
-  <button type="submit">Sign up</button>
+  <label for="username">Username</label>
+  <input type="text" class="block col-12 mb1 field" name="username" id="username" placeholder="username"/>
+
+  <label for="password">Password</label>
+  <input type="text" class="block col-12 mb1 field" name="password" id="password" placeholder="password"/>
+
+  <button type="submit" class="btn btn-primary">Sign up</button>
 </form>

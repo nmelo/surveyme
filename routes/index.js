@@ -3,6 +3,7 @@ var router = express.Router();
 var passport = require('passport');
 var uuid = require('node-uuid');
 var _ = require('lodash');
+var bcrypt = require('bcrypt-nodejs');
 
 var db = require('../models');
 var User = db.User;
@@ -74,9 +75,9 @@ function chooseSequence(pollster){
               });
         }
         return pollster;
-
+      }).error(function(error){
+        console.log(error);
       });
-
 }
 
 // select next question from randomized sequence stored in Session
@@ -93,7 +94,11 @@ function chooseNextQuestion(pollster) {
             })
             .then(function(question) {
               return question;
+            }).error(function(error){
+              console.log(error);
             });
+      }).error(function(error){
+        console.log(error);
       });
 }
 
@@ -108,19 +113,21 @@ router.get('/', function(req, res, next) {
      .then(function(_question) {
         if (_question) {
            question = _question;
-           console.log(question.id);
            Choice
               .findAll({
                 where: {question_id: question.id}
               })
               .then(function(choices){
-                console.log(choices);
-                 res.render('index', {pollster_id: pollster.id, question: question, choices: choices});
-              });
+                res.render('index', {pollster_id: pollster.id, question: question, choices: choices});
+              }).error(function(error){
+                console.log(error);
+           });
         }
         else {
           res.render('index', {pollster_id: pollster.id, question: null, choices: null});
         }
+     }).error(function(error){
+      console.log(error);
      });
 
 });
@@ -135,20 +142,34 @@ router.get('/login', function(req, res, next) {
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/surveys',
   failureRedirect: '/login',
-  failureFlash: true
+  failureFlash: 'Invalid username or password.'
 }));
 
 
+// Disable sign up, leaving here in case it's ever needed. Secure it first!
 router.get('/signup', function(req, res, next) {
   res.render('signup');
 });
 
 router.post('/signup', function(req, res, next) {
-  console.log("Selecting with: " + req.body.username);
+
   User.findOne({where: {username : req.body.username}})
       .then(function(user){
         if (user == null){
-          User.create(req.body).then(function(user) {
+          var username = req.body.username;
+          var password = req.body.password;
+
+          var salt = bcrypt.genSaltSync(10);
+          var hash = bcrypt.hashSync(password, salt);
+
+          var _user = {
+            username:username,
+            hash: hash,
+            salt: salt
+          };
+          console.log(_user);
+
+          User.create(_user).then(function(user) {
               passport.authenticate('local')(req, res, function () {
                 console.log("auth done, redirecting");
                 res.redirect('/surveys');
@@ -157,6 +178,7 @@ router.post('/signup', function(req, res, next) {
         }
         else {
           console.log("user found, not doing anything: " + user);
+          res.failureFlash("user exists");
           res.redirect('/signup');
         }
       });

@@ -17,4 +17,29 @@ router.post('/create', function(req, res) {
       });
 });
 
+
+router.get('/:choice_id/destroy', function(req, res) {
+  if(!req.isAuthenticated()) res.redirect('/login');
+
+  // get choice_id
+  Choice
+      .findOne({
+        where: {id: req.params.choice_id}
+      })
+      .then(function(choice) {
+        if (choice) {
+          Choice.destroy({
+                where: {id: req.params.choice_id}
+              })
+              .then(function() {
+                res.redirect('/questions/' + choice.question_id);
+              });
+        }
+        else {
+          res.status(400);
+          res.json({'Message:':'Choice not found'});
+        }
+      });
+});
+
 module.exports = router;

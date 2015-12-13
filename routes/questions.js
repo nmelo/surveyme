@@ -29,7 +29,7 @@ router.get('/:question_id', function(req, res) {
               where: {question_id: req.params.question_id}
             })
             .then(function(choices) {
-              res.render('question', { user: req.user, question_id: req.params.question_id, choices: choices});
+              res.render('question', { user: req.user, question_id: req.params.question_id, choices: choices, back_link: '/surveys/' + question.survey_id});
             });
       }
       else {

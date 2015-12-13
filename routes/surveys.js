@@ -37,7 +37,7 @@ router.get('/:survey_id', function(req, res) {
               where: {survey_id: req.params.survey_id}
             })
             .then(function(questions) {
-              res.render('survey', { user: req.user, survey_id: req.params.survey_id, questions: questions});
+              res.render('survey', { user: req.user, survey_id: req.params.survey_id, questions: questions, back_link: '/surveys'});
             });
       }
       else {

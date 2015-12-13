@@ -1,17 +1,17 @@
 
 {{#if question}}
-<h1>{{question.title}}</h1>
-<br><br>
-  <form action="/answers/create" method="post">
+  <h1>{{question.title}}</h1>
+
+  <form action="/answers/create" method="post" class="sm-col-6">
     <input type="hidden" name="pollster_id" value="{{pollster_id}}"/>
     <input type="hidden" name="question_id" value="{{question.id}}"/>
 
     {{#each choices}}
-      <input type="radio" name="choice" value="{{id}}">{{text}}<br><br>
+      <input type="radio" class="block col-12 mb1 field" name="choice" value="{{id}}">{{text}}
     {{/each}}
-    <br>
-    <button type="submit">Done</button>
+
+    <button type="submit" class="btn btn-primary">Done</button>
   </form>
 {{else}}
-  <h1>No more questions.</h1>
+  <h1>You answered all the questions!</h1>
 {{/if}}
