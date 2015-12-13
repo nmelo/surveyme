@@ -3,7 +3,7 @@ img { max-width: 100% }
 svg { max-height: 100% }
 
 body {
-  padding: 50px;
+  padding: 20px 50px 20px 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -15,7 +15,9 @@ form {
   padding: 20px;
 }
 
-table {
+.choices {
+  margin-bottom: 40px;
+  margin-right: 20px;
 
 }
 

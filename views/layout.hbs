@@ -17,12 +17,19 @@
     <![endif]-->
   </head>
   <body>
-
+    <h1 class="center">SurveyMe</h1>
+    <br><br>
+    {{#if back_link}}
+      <div class="back">
+        <a class="btn white bg-gray" href="{{back_link}}">Back</a>
+      </div>
+    {{/if}}
+    <br>
     <div class="right">
       {{#if user}}
         <div class="username">
           Logged in as: {{user.username}}
-        </div>
+        </div
         <div class="right">
           <a href="/logout">Logout</a>
         </div>
@@ -42,16 +49,7 @@
       {{{body}}}
 
       <br>
-      {{#if back_link}}
-        <div class="back">
-          <a class="btn btn-primary" href="{{back_link}}">Back</a>
-        </div>
-      {{/if}}
-
     </div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
 
   </body>
 </html>

@@ -49,7 +49,7 @@ function setPollsterId(req) {
   return pollster;
 }
 
-function chooseSequence(pollster){
+function chooseRandomSequence(pollster){
 
   // find the active survey
   return Survey
@@ -83,8 +83,9 @@ function chooseSequence(pollster){
 // select next question from randomized sequence stored in Session
 function chooseNextQuestion(pollster) {
 
-  return chooseSequence(pollster)
+  return chooseRandomSequence(pollster)
       .then(function(pollster){
+        //find next question in the sequence
         var next_question_id = pollster.sequence[pollster.answered];
         return Question
             .findOne({
@@ -121,7 +122,7 @@ router.get('/', function(req, res, next) {
                 res.render('index', {pollster_id: pollster.id, question: question, choices: choices});
               }).error(function(error){
                 console.log(error);
-           });
+              });
         }
         else {
           res.render('index', {pollster_id: pollster.id, question: null, choices: null});
@@ -147,42 +148,42 @@ router.post('/login', passport.authenticate('local', {
 
 
 // Disable sign up, leaving here in case it's ever needed. Secure it first!
-router.get('/signup', function(req, res, next) {
-  res.render('signup');
-});
-
-router.post('/signup', function(req, res, next) {
-
-  User.findOne({where: {username : req.body.username}})
-      .then(function(user){
-        if (user == null){
-          var username = req.body.username;
-          var password = req.body.password;
-
-          var salt = bcrypt.genSaltSync(10);
-          var hash = bcrypt.hashSync(password, salt);
-
-          var _user = {
-            username:username,
-            hash: hash,
-            salt: salt
-          };
-          console.log(_user);
-
-          User.create(_user).then(function(user) {
-              passport.authenticate('local')(req, res, function () {
-                console.log("auth done, redirecting");
-                res.redirect('/surveys');
-              });
-            });
-        }
-        else {
-          console.log("user found, not doing anything: " + user);
-          res.failureFlash("user exists");
-          res.redirect('/signup');
-        }
-      });
-});
+//router.get('/signup', function(req, res, next) {
+//  res.render('signup');
+//});
+//
+//router.post('/signup', function(req, res, next) {
+//
+//  User.findOne({where: {username : req.body.username}})
+//      .then(function(user){
+//        if (user == null){
+//          var username = req.body.username;
+//          var password = req.body.password;
+//
+//          var salt = bcrypt.genSaltSync(10);
+//          var hash = bcrypt.hashSync(password, salt);
+//
+//          var _user = {
+//            username:username,
+//            hash: hash,
+//            salt: salt
+//          };
+//          console.log(_user);
+//
+//          User.create(_user).then(function(user) {
+//              passport.authenticate('local')(req, res, function () {
+//                console.log("auth done, redirecting");
+//                res.redirect('/surveys');
+//              });
+//            });
+//        }
+//        else {
+//          console.log("user found, not doing anything: " + user);
+//          res.failureFlash("user exists");
+//          res.redirect('/signup');
+//        }
+//      });
+//});
 
 
 router.get('/logout', function(req, res) {

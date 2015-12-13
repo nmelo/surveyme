@@ -47,6 +47,48 @@ router.get('/:survey_id', function(req, res) {
     });
 });
 
+
+router.get('/:survey_id/activate', function(req, res) {
+  if(!req.isAuthenticated()) res.redirect('/login');
+
+  //find the active survey
+  Survey
+      .findOne({
+        where: {active: 1}
+      })
+      .then(function(active_survey) {
+        //deactivate active survey
+        return active_survey
+            .update({
+              active: 0
+            })
+            .then(function (survey) {
+              return survey;
+            });
+      })
+      .then(function(survey) {
+        //// activate the selected survey
+        Survey
+            .findOne({
+              where: {id: req.params.survey_id}
+            })
+            .then(function(inactive_survey) {
+              return inactive_survey
+                  .update({
+                    active: 1
+                  })
+                  .then(function (survey) {
+                    return survey;
+                  });
+            });
+        //return survey;
+      })
+      .then(function(survey) {
+        //render surveys
+        res.redirect('/surveys');
+      });
+});
+
 router.get('/:survey_id/destroy', function(req, res) {
   if(!req.isAuthenticated()) res.redirect('/login');
 

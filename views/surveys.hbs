@@ -1,22 +1,23 @@
-<h1>All the Surveys:</h1>
+<h4>All the Surveys:</h4>
 
 <form action="/surveys/create" method='post' class="sm-col-6 border">
   <label for="title">Title</label>
-  <input type="text" class="block col-12 mb1 field" name="title" placeholder="Title" value="Title">
+  <input type="text" class="block col-12 mb1 field" name="title" placeholder="Title">
 
   <label for="subtitle">Title</label>
-  <input type="text" class="block col-12 mb1 field" name="subtitle" placeholder="Subtitle" value="Subtitle">
+  <input type="text" class="block col-12 mb1 field" name="subtitle" placeholder="Subtitle">
 
   <button type="submit" class="btn btn-primary">Create</button>
 </form>
 
 <br>
 
+<h4>Surveys:</h4>
 <div>
   <table class="table-light border">
     <thead>
     <tr>
-      <th>Title</th> <th>Subtitle</th> <th></th>
+      <th>Title</th> <th>Subtitle</th> <th>State</th><th></th>
     </tr>
     </thead>
     <tbody>
@@ -24,6 +25,11 @@
     <tr>
       <td><a href='/surveys/{{id}}'>{{title}}</a></td>
       <td>{{subtitle}}</td>
+      {{#if active}}
+        <td>Active</td>
+      {{else}}
+        <td><a href='/surveys/{{id}}/activate' class="btn btn-primary">Activate</a></td>
+      {{/if}}
       <td><a href='/surveys/{{id}}/destroy' class="btn btn-primary">Delete</a></td>
     </tr>
     {{/each}}
