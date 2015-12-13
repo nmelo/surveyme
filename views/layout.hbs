@@ -19,11 +19,7 @@
   <body>
     <h1 class="center">SurveyMe</h1>
     <br><br>
-    {{#if back_link}}
-      <div class="back">
-        <a class="btn white bg-gray" href="{{back_link}}">Back</a>
-      </div>
-    {{/if}}
+
     <br>
     <div class="right">
       {{#if user}}
@@ -40,6 +36,12 @@
 
     <div class="container">
 
+      {{#if back_link}}
+        <div class="back">
+          <a class="btn white bg-gray" href="{{back_link}}">Back</a>
+        </div>
+      {{/if}}
+      
       {{#if errorMessage}}
         <div class="error">
           {{errorMessage}}
