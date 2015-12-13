@@ -8,6 +8,7 @@ var db = require('../models');
 var User = db.User;
 var Survey = db.Survey;
 var Question = db.Question;
+var Choice = db.Choice;
 
 
 function shuffle(array) {
@@ -99,16 +100,29 @@ function chooseNextQuestion(pollster) {
 router.get('/', function(req, res, next) {
 
   var pollster = setPollsterId(req);
+  var question = null;
 
   console.log(pollster);
 
   chooseNextQuestion(pollster)
-      .then(function(question) {
-        if (question) {
-          question.choices = JSON.parse(question.choices); // parse choices
+     .then(function(_question) {
+        if (_question) {
+           question = _question;
+           console.log(question.id);
+           Choice
+              .findAll({
+                where: {question_id: question.id}
+              })
+              .then(function(choices){
+                console.log(choices);
+                 res.render('index', {pollster_id: pollster.id, question: question, choices: choices});
+              });
         }
-        res.render('index', {pollster_id: pollster.id, question: question});
-      });
+        else {
+          res.render('index', {pollster_id: pollster.id, question: null, choices: null});
+        }
+     });
+
 });
 
 

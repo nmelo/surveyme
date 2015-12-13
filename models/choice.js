@@ -1,6 +1,7 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var Choice = sequelize.define('Choice', {
+    question_id: DataTypes.STRING,
     text: DataTypes.STRING
   }, {
     classMethods: {

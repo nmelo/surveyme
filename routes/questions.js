@@ -3,6 +3,7 @@ var router  = express.Router();
 
 var db = require('../models');
 var Question = db.Question;
+var Choice = db.Choice;
 
 
 router.post('/create', function(req, res) {
@@ -16,14 +17,13 @@ router.post('/create', function(req, res) {
 
 router.get('/:question_id', function(req, res) {
   if(!req.isAuthenticated()) res.redirect('/login');
-
+  console.log("rendering question");
   Question
     .findOne({
       where: {id: req.params.question_id}
     })
     .then(function(question) {
       if (question) {
-
         Choice
             .findAll({
               where: {question_id: req.params.question_id}

@@ -1,16 +1,15 @@
-<h1>Create new question:</h1>
-<form action="/questions/create" method='post'>
-  <input type="hidden" name="survey_id" value="{{survey_id}}"><br>
-  <input type="text" name="title" placeholder="Title" value="Question Title"><br>
-  <input type="text" name="content" placeholder="Content" value="Question Content"><br><br>
-  <button type="submit">Publicar</button>
+<h1>Create new choice:</h1>
+<form action="/choices/create" method='post'>
+  <input type="hidden" name="question_id" value="{{question_id}}"><br>
+  <input type="text" name="text" placeholder="Text" value="Choice Text"><br>
+  <button type="submit">Save</button>
 </form>
 <br><br>
 <ul>
-    {{#each questions }}
+    {{#each choices }}
         <li>
-            <a href='/questions/{{id}}'>{{title}}</a>
-            <a href='/questions/{{id}}/destroy'>(Delete)</a><br>
+            {{text}}
+            <a href='/choices/{{id}}/destroy'>(Delete)</a><br>
         </li>
     {{/each}}
 </ul>

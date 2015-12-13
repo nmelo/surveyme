@@ -19,7 +19,7 @@ router.post('/create', function(req, res) {
         var _answer = {
           question_id : question.id,
           pollster_id: pollster_id,
-          choice: choice
+          choice_id: choice
         };
 
         Answer

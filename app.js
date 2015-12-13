@@ -16,6 +16,7 @@ var users = require('./routes/users');
 var surveys = require('./routes/surveys');
 var questions = require('./routes/questions');
 var answers = require('./routes/answers');
+var choices = require('./routes/choices');
 
 var db = require('./models');
 var User = db.User;
@@ -96,6 +97,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/surveys', surveys);
 app.use('/questions', questions);
+app.use('/choices', choices);
 app.use('/answers', answers);
 
 // catch 404 and forward to error handler

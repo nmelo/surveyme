@@ -6,12 +6,12 @@
     <input type="hidden" name="pollster_id" value="{{pollster_id}}"/>
     <input type="hidden" name="question_id" value="{{question.id}}"/>
 
-    {{#each question.choices}}
-      <input type="radio" name="choice" value="{{id}}">{{value}}<br><br>
+    {{#each choices}}
+      <input type="radio" name="choice" value="{{id}}">{{text}}<br><br>
     {{/each}}
     <br>
     <button type="submit">Done</button>
   </form>
 {{else}}
-  <h1>We don't have any more questions. For now.</h1>
+  <h1>No more questions.</h1>
 {{/if}}
