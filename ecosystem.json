@@ -1,0 +1,24 @@
+{
+  "apps" : [{
+    "name"      : "surveyme",
+    "script"    : "app.js",
+    "env": {
+    },
+    "env_staging" : {
+    },
+    "env_production" : {
+    }
+  }],
+  "deploy" : {
+    "production" : {
+      "key"  : "/Users/nmelo/.ssh/id_rsa.pub",
+      "user" : "nmelo",
+      "host" : "212.47.241.3",
+      "ref"  : "origin/master",
+      "repo" : "git@github.com:nmelo/surveyme.git",
+      "path" : "/home/nmelo/surveyme",
+      "post-deploy" : "npm install && pm2 startOrRestart ecosystem.json --env production",
+      "pre-deploy-local" : "echo $USER"
+    }
+  }
+}
