@@ -16,8 +16,8 @@ A simple survey system
 http://surveyme.nmelo.me:3000
 
 ## Admin Login Info:
-Default username: `admin`
-Default password: `admin123`
+- Default username: `admin`
+- Default password: `admin123`
 
 ## Thanks to: 
 
